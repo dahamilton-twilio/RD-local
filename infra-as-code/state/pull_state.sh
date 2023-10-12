@@ -40,4 +40,5 @@ else
 	echo "JOB_FAILED=true" >>"$GITHUB_OUTPUT"
 	exit 0
 fi
+echo "JOB_FAILED=false" >>"$GITHUB_OUTPUT"
 echo "   - :white_check_mark: Terraform imported" >>$GITHUB_STEP_SUMMARY
