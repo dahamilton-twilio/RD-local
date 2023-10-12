@@ -120,7 +120,9 @@ fi
 
 export TF_VAR_SERVERLESS_SID TF_VAR_SCHEDULE_MANAGER_SID TF_VAR_SERVERLESS_DOMAIN TF_VAR_SERVERLESS_ENV_SID TF_VAR_SCHEDULE_MANAGER_DOMAIN TF_VAR_SCHEDULE_MANAGER_ENV_SID TF_VAR_FUNCTION_CREATE_CALLBACK TF_VAR_FUNCTION_CHECK_SCHEDULE_SID
 
-importInternalState
+if [ -z "$1" ]; then
+	importInternalState
+fi
 
 terraform -chdir="../terraform/environments/default" apply -input=false -auto-approve
 echo "JOB_FAILED=false" >>"$GITHUB_OUTPUT"

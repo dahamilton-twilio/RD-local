@@ -54,6 +54,12 @@ jobs:
         if: steps.pull-state.outputs.JOB_FAILED == 'true'
         working-directory: ./infra-as-code/state
         id: import_internal_state
+      - name: Apply State
+        run: |
+          ./import_internal_state.sh applyOnly
+        if: steps.pull-state.outputs.JOB_FAILED == 'false'
+        working-directory: ./infra-as-code/state
+        id: import_internal_state        
       - name: Export State
         run: |
           ./push_state.sh

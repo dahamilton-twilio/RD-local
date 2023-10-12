@@ -30,6 +30,14 @@ resource "twilio_taskrouter_workspaces_task_queues_v1" "template_example_billing
   task_order           = "FIFO"
 }
 
+resource "twilio_taskrouter_workspaces_task_queues_v1" "template_example_skill1" {
+  workspace_sid        = twilio_taskrouter_workspaces_v1.flex.sid
+  friendly_name        = "Template Example Skill 1"
+  target_workers       = "routing.skills HAS 'template_example_skill1'"
+  max_reserved_workers = 1
+  task_order           = "FIFO"
+}
+
 resource "twilio_taskrouter_workspaces_task_queues_v1" "internal_calls" {
   workspace_sid        = twilio_taskrouter_workspaces_v1.flex.sid
   friendly_name        = "Internal Calls"
