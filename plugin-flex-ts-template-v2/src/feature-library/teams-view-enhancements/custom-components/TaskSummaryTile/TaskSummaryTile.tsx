@@ -1,6 +1,8 @@
 import { Icon, Template, templates, useFlexSelector } from '@twilio/flex-ui';
 import * as React from 'react';
-import { Box, Table, THead, TBody, Th, Tr, Td, Tooltip } from '@twilio-paste/core';
+import { Box } from '@twilio-paste/core/box';
+import { Table, THead, TBody, Th, Tr, Td } from '@twilio-paste/core/table';
+import { Tooltip } from '@twilio-paste/core/tooltip';
 import { SupervisorWorkerState } from '@twilio/flex-ui/src/state/State.definition';
 import AppState from 'types/manager/AppState';
 import { CallIncomingIcon } from '@twilio-paste/icons/esm/CallIncomingIcon';
@@ -9,14 +11,13 @@ import { CallOutgoingIcon } from '@twilio-paste/icons/esm/CallOutgoingIcon';
 import { TileWrapper, Channel, Label, Heading } from './TaskSummaryTile.Components';
 import { getTasksByTeamCounts } from '../../utils/WorkerDataUtil';
 import { TaskCounts } from '../../types';
-import { getEnabledChannels, getChannelsConfig } from '../../config';
-import { getTeamOptions } from '../../../teams-view-filters/config';
+import { getEnabledChannels, getChannelsConfig, getTeams } from '../../config';
 import { StringTemplates } from '../../flex-hooks/strings';
 import { Channels } from '../../types/ServiceConfiguration';
 import { getChannelIcon } from '../../utils/helpers';
 
 const TaskSummaryTile = () => {
-  const teams = getTeamOptions();
+  const teams = getTeams();
   const taskCounts: TaskCounts = useFlexSelector((state: AppState) => {
     const workers: SupervisorWorkerState[] = state.flex.supervisor.workers;
     return getTasksByTeamCounts(workers, teams);
@@ -109,7 +110,7 @@ const TaskSummaryTile = () => {
                 );
               })}
             </Tr>
-            {teams.map((team) => {
+            {teams.map((team: string) => {
               return (
                 <Tr key={team}>
                   <Td element="COMPACT_TABLE">

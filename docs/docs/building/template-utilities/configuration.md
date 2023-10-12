@@ -36,9 +36,12 @@ If you wish to provide alternate feature configurations per environment, such as
 
 The custom_data model that lives in ui_attributes follows this schema:
 
-```json
+```json title=ui_attributes.<env-name>.json
 {
 "custom_data": {
+    "common": {
+      // template-wide config options are here
+    },
     "features": {
       "<feature-name>": {
         "enabled": true,
@@ -54,9 +57,23 @@ The custom_data model that lives in ui_attributes follows this schema:
 
 Ultimately, enablement of each feature is managed by this object as it appears in the [hosted Flex configuration](https://www.twilio.com/docs/flex/developer/config/flex-configuration-rest-api#ui_attributes) (or `appConfig.js` if running [locally](#local-environment))
 
+#### Common configuration
+
+Some configuration is not specific to a feature, and is included in the `common` section. This section is intended to be used for items that could be used by several features.
+
+:::tip Food for thought
+If you have two features which need to share a piece of configuration, consider that it likely makes more sense to combine the features rather than using common configuration.
+:::
+
+The following common configuration properties are included by default:
+
+- **`log_level`** - The minimum log level to output to the browser console. `info` by default; may be set to `debug`, `log`, `warn`, `info`, or `error`
+- **`teams`** - Array of team names used by various features to populate team lists, matching the values used in worker attributes.
+- **`departments`** - Array of department names used by various features to populate department lists, matching the values used in worker attributes.
+
 #### Per-worker configuration overrides
 
-When performing testing, or for managing a diverse contact center, you may wish different workers to have a different feature configuration. This could be variations of feature settings or enabling a different feature set altogether. You may add a `config_overrides` object to a worker's attributes to override any feature configuration, taking priority over both the hosted Flex configration and the local `appConfig.js` (if applicable).
+When performing testing, or for managing a diverse contact center, you may wish different workers to have a different feature configuration. This could be variations of common settings, feature settings, or enabling a different feature set altogether. You may add a `config_overrides` object to a worker's attributes to override any feature configuration, taking priority over both the hosted Flex configuration and the local `appConfig.js` (if applicable).
 
 For example, if the `activity-reservation-handler` feature is globally enabled but you wish to disable it for a specific worker, you can add the following to the worker's attributes to disable it:
 
@@ -71,9 +88,42 @@ For example, if the `activity-reservation-handler` feature is globally enabled b
 }
 ```
 
-### Updating the config
+### Configuring skills
 
-There are two strategies for managing the configuration set which are mutually exclusive
+The `taskrouter_skills.json` file under the flex-config directory defines skills that should be automatically deployed. The skills in the file will be merged with any skills existing in the environment. By default this contains two sample skills, `template_example_sales` and `template_example_support`.
+
+:::tip Important note
+Be sure to use skill names without spaces!
+:::
+
+Here is an example of how you can populate this file:
+
+```json title=taskrouter_skills.json
+[
+  {
+    "minimum": null,
+    "multivalue": false,
+    "name": "billing",
+    "maximum": null
+  },
+  {
+    "minimum": null,
+    "multivalue": false,
+    "name": "support",
+    "maximum": null
+  },
+  {
+    "minimum": null,
+    "multivalue": false,
+    "name": "offline_work",
+    "maximum": null
+  }
+]
+```
+
+### Updating the front-end config
+
+There are two strategies for managing the configuration, which are mutually exclusive:
 
 #### Admin UI
 
@@ -84,6 +134,8 @@ You can use the [admin-ui feature](/feature-library/admin-ui), which is the defa
 When running [locally](#local-environment), the admin-ui feature directly ignores what is in `appConfig.js` and shows only what is in [hosted Flex configuration](https://www.twilio.com/docs/flex/developer/config/flex-configuration-rest-api#ui_attributes) or what has been overridden using the [per-worker feature overrides](/feature-library/admin-ui#how-does-it-work).  This can cause confusion, and for that reason, admin-ui is disabled by default via `appConfig.js` when running the template locally.
 
 ::: 
+
+When using this strategy, configuration can still be updated from outside the Admin UI via deployment scripts. However, only _new_ configuration will be added and no existing values will be overwritten.
 
 #### Infrastructure-as-code (version control)
 
@@ -113,7 +165,7 @@ When the setup script runs, it finds strings matching the pattern `<YOUR_VARIABL
 
 If the value is not found in the environment variables, the `scripts/config/mappings.json` file is consulted to map that variable to a value (such as a SID or serverless domain) using name-matched results from the Twilio CLI. The format of this file is as follows:
 
-```json
+```json title=mappings.json
 {
   "VARIABLE_NAME_HERE": {
     "type": "tr-workflow", // Type of Twilio resource to fetch the value of: serverless-domain, tr-workspace, tr-workflow, chat-service, or sync-service
