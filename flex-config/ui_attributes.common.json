@@ -7,7 +7,7 @@
   "custom_data": {
     "features": {
       "activity_skill_filter": {
-        "enabled": true,
+        "enabled": false,
         "rules": {
           "On a Task": {
             "required_skill": "system_activities",
@@ -39,19 +39,19 @@
         "auto_select_task": true
       },
       "caller_id": {
-        "enabled": true,
+        "enabled": false,
         "include_outgoing_only_numbers": true
       },
       "conversation_transfer": {
-        "enabled": true,
+        "enabled": false,
         "cold_transfer": true,
         "multi_participant": true
       },
       "chat_to_video_escalation": {
-        "enabled": true
+        "enabled": false
       },
       "conference": {
-        "enabled": true,
+        "enabled": false,
         "hold_workaround": false
       },
       "enhanced_crm_container": {
@@ -61,13 +61,13 @@
         "display_url_when_no_tasks": "https://www.bing.com"
       },
       "internal_call": {
-        "enabled": true
+        "enabled": false
       },
       "scrollable_activities": {
-        "enabled": true
+        "enabled": false
       },
       "supervisor_barge_coach": {
-        "enabled": true,
+        "enabled": false,
         "agent_coaching_panel": true,
         "supervisor_monitor_panel": true,
         "agent_assistance": true,
@@ -79,7 +79,7 @@
         "default_max_capacity": 2
       },
       "device_manager": {
-        "enabled": true,
+        "enabled": false,
         "input_select": false
       },
       "dual_channel_recording": {
@@ -87,7 +87,7 @@
         "channel": "worker"
       },
       "pause_recording": {
-        "enabled": true,
+        "enabled": false,
         "include_silence": false,
         "indicator_banner": false,
         "indicator_permanent": true
@@ -103,7 +103,7 @@
         }
       },
       "teams_view_filters": {
-        "enabled": true,
+        "enabled": false,
         "log_filters": false,
         "applied_filters": {
           "activities": true,
@@ -138,7 +138,7 @@
         ]
       },
       "supervisor_capacity": {
-        "enabled": true
+        "enabled": false
       },
       "schedule_manager": {
         "enabled": true
@@ -147,13 +147,13 @@
         "enabled": false
       },
       "hang_up_by": {
-        "enabled": true
+        "enabled": false
       },
       "chat_transfer": {
         "enabled": false
       },
       "agent_automation": {
-        "enabled": true,
+        "enabled": false,
         "configuration": [
           {
             "channel": "voice",
@@ -176,22 +176,22 @@
         ]
       },
       "supervisor_complete_reservation": {
-        "enabled": true,
+        "enabled": false,
         "outcome": "Completed by supervisor"
       },
       "canned_responses": {
-        "enabled": true,
+        "enabled": false,
         "location": "MessageInputActions"
       },
       "keyboard_shortcuts": {
-        "enabled": true
+        "enabled": false
       },
       "custom_hold_music": {
         "enabled": false,
         "url": ""
       },
       "custom_transfer_directory": {
-        "enabled": true,
+        "enabled": false,
         "use_paste_search_icon": false,
         "queue": {
           "enabled": true,
@@ -227,10 +227,10 @@
         }
       },
       "emoji_picker": {
-        "enabled": true
+        "enabled": false
       },
       "attribute_viewer": {
-        "enabled": true,
+        "enabled": false,
         "enabled_for_agents": false
       },
       "admin_ui": {
@@ -241,11 +241,11 @@
         "show_menu": true
       },
       "park_interaction": {
-        "enabled": true,
+        "enabled": false,
         "show_list": false
       },
       "teams_view_enhancements": {
-        "enabled": true,
+        "enabled": false,
         "channels": {
           "Voice": {
             "color": "#ADD8E6",
@@ -280,7 +280,7 @@
         }
       },
       "send_audio_rec_file": {
-        "enabled": true
+        "enabled": false
       },
       "queues_view_data_tiles": {
         "enabled": false,
