@@ -5,6 +5,26 @@
     }
   },
   "custom_data": {
+    "common": {
+      "log_level": "info",
+      "teams": [
+        "Blue Team",
+        "Red Team",
+        "Gold Team",
+        "VIP Team"
+      ],
+      "departments": [
+        "General Management",
+        "Marketing",
+        "Operations",
+        "Finance",
+        "Sales",
+        "Human Resources",
+        "Purchasing",
+        "Customer Service",
+        "Recruiting"
+      ]
+    },
     "features": {
       "activity_skill_filter": {
         "enabled": false,
@@ -56,9 +76,11 @@
       },
       "enhanced_crm_container": {
         "enabled": true,
-        "url": "https://www.bing.com/search?q={{task.from}}",
-        "should_display_url_when_no_tasks": false,
-        "display_url_when_no_tasks": "https://www.bing.com"
+        "url": "{{serverless.url}}/features/enhanced-crm-container/index.html?line1={{task.from}}&line2={{task.direction}}",
+        "should_display_url_when_no_tasks": true,
+        "display_url_when_no_tasks": "{{serverless.url}}/features/enhanced-crm-container/index.html",
+        "enable_url_tab": true,
+        "url_tab_title": "Web Page"
       },
       "internal_call": {
         "enabled": false
@@ -113,29 +135,7 @@
           "queue_worker_data": false,
           "team": true,
           "agent_skills": true
-        },
-        "department_options": [
-          "General Management",
-          "Marketing",
-          "Operations",
-          "Finance",
-          "Sales",
-          "Human Resources",
-          "Purchasing",
-          "Customer Service",
-          "Recruiting"
-        ],
-        "team_options": [
-          "Blue Team",
-          "Red Team",
-          "Gold Team",
-          "VIP Team",
-          "Orange Team",
-          "Yellow Team",
-          "Green Team",
-          "Purple Team",
-          "Gray Team"
-        ]
+        }
       },
       "supervisor_capacity": {
         "enabled": false
