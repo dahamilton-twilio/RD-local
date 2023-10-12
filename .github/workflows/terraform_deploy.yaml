@@ -51,11 +51,10 @@ jobs:
       - name: Import Internal State
         run: |
           ./import_internal_state.sh
-        if: steps.pull-state.outputs.JOB_FAILED == 'false'
+        if: steps.pull-state.outputs.JOB_FAILED == 'true'
         working-directory: ./infra-as-code/state
         id: import_internal_state
       - name: Export State
         run: |
           ./push_state.sh
         working-directory: ./infra-as-code/state
-        if: steps.import_internal_state.outputs.JOB_FAILED == 'false'
